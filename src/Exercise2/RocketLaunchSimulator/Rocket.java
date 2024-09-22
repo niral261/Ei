@@ -9,9 +9,9 @@ public class Rocket {
     private boolean orbitAchieved = false;
     private int desiredOrbitAltitude;
 
-    public Rocket(double fuel, int altitude) {
-        this.fuel=fuel;
-        this.desiredOrbitAltitude = altitude;
+    public Rocket(double initialFuel, int orbitAltitude) {
+        this.fuel = initialFuel;
+        this.desiredOrbitAltitude = orbitAltitude;
     }
 
     public String getStage() {
@@ -44,8 +44,13 @@ public class Rocket {
 
     public void updateState() {
         fuel -= 5;
-        altitude += 10;
         speed += 1000;
+        if (altitude + 10 >= desiredOrbitAltitude) {
+            altitude = desiredOrbitAltitude;
+            achieveOrbit();
+        } else {
+            altitude += 10;
+        }
     }
 
     public void stageSeparation() {

@@ -20,7 +20,7 @@ public class RocketLaunch {
 
         System.out.println("Type 'start_checks' to begin pre-launch checks.");
 
-        while (true) {
+        do {
             String command = sc.nextLine();
 
             switch (command) {
@@ -33,17 +33,13 @@ public class RocketLaunch {
                 case "fast_forward":
                     System.out.print("Enter the number of seconds to fast forward: ");
                     int seconds = sc.nextInt();
-                    sc.nextLine(); 
+                    sc.nextLine();
                     missionControl.fastForward(seconds);
                     break;
                 default:
                     System.out.println("Unknown command. Available commands: start_checks, launch, fast_forward.");
             }
-
-            if (rocket.isOrbitAchieved() || rocket.getFuel() <= 0) {
-                break; 
-            }
-        }
+        } while (!rocket.isOrbitAchieved() && !(rocket.getFuel() <= 0));
 
         sc.close();
     }

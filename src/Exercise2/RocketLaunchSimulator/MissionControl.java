@@ -21,8 +21,13 @@ public class MissionControl {
             rocket.updateState();
 
             if (randomEvent()) {
-                System.out.println("System malfunction! Correcting...");
                 rocket.reduceFuel(10);
+            }
+
+            // Check fuel to prevent negative values
+            if (rocket.getFuel() <= 0) {
+                System.out.println("Mission Failed due to insufficient fuel.");
+                break;
             }
 
             printRocketState();
@@ -31,8 +36,8 @@ public class MissionControl {
                 rocket.stageSeparation();
                 System.out.println("Stage 1 complete. Entering Stage 2.");
             }
-
-            if (rocket.getAltitude() >= rocket.getDesiredOrbitAltitude() && !rocket.isOrbitAchieved()) {
+//            System.out.println(rocket.getAltitude()+" "+rocket.isStageComplete());
+            if (rocket.getAltitude() >= rocket.getDesiredOrbitAltitude() && rocket.isOrbitAchieved()) {
                 rocket.achieveOrbit();
                 System.out.println("Orbit achieved! Mission Successful.");
                 printMissionSummary();
@@ -46,6 +51,7 @@ public class MissionControl {
             }
         }
 
+        // Check fuel one last time before exiting
         if (rocket.getFuel() <= 0) {
             System.out.println("Mission Failed due to insufficient fuel.");
         }
@@ -61,8 +67,13 @@ public class MissionControl {
             rocket.updateState();
 
             if (randomEvent()) {
-                System.out.println("System malfunction! Correcting...");
                 rocket.reduceFuel(10);
+            }
+
+            // Check fuel to prevent negative values
+            if (rocket.getFuel() <= 0) {
+                System.out.println("Mission Failed due to insufficient fuel.");
+                break;
             }
 
             printRocketState();
@@ -82,7 +93,7 @@ public class MissionControl {
     }
 
     private void printRocketState() {
-        System.out.println("Stage: " + rocket.getStage() + ", Fuel: " + rocket.getFuel() + "%, Altitude: " + rocket.getAltitude() + " km, Speed: " + rocket.getSpeed() + " km/h");
+        System.out.println("Stage: " + rocket.getStage() + ", Fuel: " + (rocket.getFuel() > 0 ? rocket.getFuel() : 0) + "%, Altitude: " + rocket.getAltitude() + " km, Speed: " + rocket.getSpeed() + " km/h");
     }
 
     private boolean randomEvent() {
@@ -93,8 +104,7 @@ public class MissionControl {
         System.out.println("\nMission Summary:");
         System.out.println("- Peak Altitude: " + rocket.getAltitude() + " km");
         System.out.println("- Max Speed: " + rocket.getSpeed() + " km/h");
-        System.out.println("- Fuel Remaining: " + rocket.getFuel() + "%");
+        System.out.println("- Fuel Remaining: " + (rocket.getFuel() > 0 ? rocket.getFuel() : 0) + "%");
         System.out.println("- Mission Duration: " + (rocket.getAltitude() / 10) + " seconds");
     }
 }
-
