@@ -1,4 +1,4 @@
-package Exercise1.StructuralDesignPattern.ObserverPattern;
+package Exercise1.BehaviouralDesignPattern.ObserverPattern;
 
 import java.util.ArrayList;
 import java.util.List;

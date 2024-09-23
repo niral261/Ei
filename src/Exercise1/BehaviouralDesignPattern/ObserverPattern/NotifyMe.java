@@ -1,4 +1,4 @@
-package Exercise1.StructuralDesignPattern.ObserverPattern;
+package Exercise1.BehaviouralDesignPattern.ObserverPattern;
 
 public class NotifyMe {
     public static void main(String[] args) {
